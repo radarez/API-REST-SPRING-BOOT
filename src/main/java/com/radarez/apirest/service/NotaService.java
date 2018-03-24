@@ -8,6 +8,7 @@ import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -71,5 +72,13 @@ public class NotaService {
 
     public List<MNota> buscarPorTitulo(String titulo){
         return convertidor.convertirLista(repositorio.findByTitulo(titulo));
+    }
+
+
+    /** Pagination method
+    * The librery that will be imported is -> "import org.springframework.data.domain.Pageable;"
+    */
+    public List<MNota> obtenerPaginacion(Pageable pageable){
+        return convertidor.convertirLista(repositorio.findAll(pageable).getContent());
     }
 }
